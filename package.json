@@ -1,0 +1,28 @@
+{
+  "name": "webmonitor-server2",
+  "version": "1.0.0",
+  "description": "Webmonitor2 using JWT authentication method",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JamesGu14/webmonitor-server2.git"
+  },
+  "keywords": [
+    "express"
+  ],
+  "author": "James Gu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JamesGu14/webmonitor-server2/issues"
+  },
+  "homepage": "https://github.com/JamesGu14/webmonitor-server2",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "passport": "^0.3.2",
+    "passport-http-bearer": "^1.0.1"
+  }
+}
