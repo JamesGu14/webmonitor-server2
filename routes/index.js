@@ -7,20 +7,23 @@ router.get('/', function (req, res) {
   res.send('Webmonitor2 Server')
 })
 
-router.get('/login', function (req, res) {
-  Auth.login('admin@admin.com', '123', function (err, result, token, message) {
+router.post('/login', function (req, res) {
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Headers', 'X-Requested-With')
+  Auth.login(req.body.username, req.body.password, function (err, result, token, message) {
     if (err) {
-      return res.send(err.message)
+      return res.json({ error: err.message })
     }
     if (!result) {
-      return res.send('Login failed')
+      return res.json({ error: null, success: false })
     }
-    return res.send(token)
+    return res.json({ success: true, token: token })
   })
 })
 
 router.get('/checkonline', function (req, res) {
-  
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Headers', 'X-Requested-With')
   Auth.isOnline(req.query.token, function (err, success, message) {
     if (err) {
       return res.send(err.message)
