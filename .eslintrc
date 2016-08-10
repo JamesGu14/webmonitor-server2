@@ -73,7 +73,6 @@
         "no-new-wrappers": 2,
         "no-octal": 2,
         "no-octal-escape": 2,
-        "no-process-env": 2,
         "no-proto": 2,
         "no-redeclare": 2,
         "no-return-assign": 2,
@@ -127,7 +126,6 @@
         }],
         "no-spaced-func": 2,
         "no-ternary": 0,
-        "no-trailing-spaces": 2,
         "no-multiple-empty-lines": 2,
         "no-underscore-dangle": 0,
         "one-var": 0,
@@ -148,7 +146,7 @@
         "wrap-regex": 0,
         // Legacy
         "max-depth": 0,
-        "max-len": [2, 120],
+        "max-len": [2, 150],
         "max-params": 0,
         "max-statements": 0,
         "no-plusplus": 0
