@@ -13,7 +13,7 @@ module.exports.login = (username, password, done) => {
     }
 
     if (!_user) {
-      return done(null, false, null, { message: '登录失败' })
+      return done(null, false)
     } 
 
     let payload = {
@@ -21,10 +21,14 @@ module.exports.login = (username, password, done) => {
       _id: _user._id,
       username: _user.username
     }
-    var token = jwt.encode(payload, secret, 'HS512')
+    let token = jwt.encode(payload, secret, 'HS512')
+
+    let profile = {
+      username: _user.username
+    }
 
     // TODO: update last login record for the client
-    return done(null, true, token)
+    return done(null, true, token, profile)
   })
 }
 
