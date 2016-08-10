@@ -14,7 +14,26 @@ const config = {
   $meta: 'This document contains application level configuration.',
   projectName: Pkg.name,
   version: Pkg.version,
-  secret: 'webmonitor2'
+  secret: {
+    $filter: 'env',
+    $default: 'webmonitor2',
+    dev: 'webmonitor2',
+    stage: 'webmonitor2',
+    prod: '2S#s9!1x'
+  },
+  database: {
+    $filter: 'env',
+    $default: {
+      mongo: {
+        url: 'mongodb://localhost/webmonitor'
+      }
+    },
+    dev: {
+      mongo: {
+        url: 'mongodb://localhost/webmonitor'
+      }
+    }
+  }
 }
 
 const store = new Confidence.Store(config)

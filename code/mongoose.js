@@ -1,5 +1,5 @@
 var mongoose = require('mongoose')
-const Config = require('../configuration/')
+const Config = require('../config/')
 mongoose.connect(Config.get('/database/mongo/url'))
 
 var db = mongoose.connection

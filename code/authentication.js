@@ -3,10 +3,10 @@ const _ = require('lodash')
 const moment = require('moment')
 const Config = require('../config/')
 const secret = Config.get('/secret')
-const Sys_user = require('../models/models').Sys_user
+const Sys_user = require('../models/').Sys_user
 
 module.exports.login = (username, password, done) => {
-  sys_user.findOne({ username: username, password: password }, function (err, _user) {
+  Sys_user.findOne({ username: username, password: password }, function (err, _user) {
     // TODO: Add login fail handler
     if (err) {
       return done(err)
@@ -16,7 +16,11 @@ module.exports.login = (username, password, done) => {
       return done(null, false, null, { message: '登录失败' })
     } 
 
-    let payload = _.assign(_user, { expiry: moment().add(2, 'h') })
+    let payload = {
+      expiry: moment().add(2, 'h').utc().format('YYYY-MM-DD HH:mm:ss'),
+      _id: _user._id,
+      username: _user.username
+    }
     var token = jwt.encode(payload, secret, 'HS512')
 
     // TODO: update last login record for the client
@@ -27,20 +31,20 @@ module.exports.login = (username, password, done) => {
 /**
  * Check token expiry
  */
-module.exports.isOnline = (token) => {
+module.exports.isOnline = (token, done) => {
   let payload
   try {
     payload = jwt.decode(token, secret)
   } catch (err) {
-    return false
+    return done(err)
   }
 
   if (!payload || !payload.expiry) {
-    return false
+    return done(null, false, 'Invalid Token')
   }
-  if (payload.expiry > moment()) {
-    return true
+  if (moment(payload.expiry).format() > moment().utc().format()) {
+    return done(null, true)
   }
   
-  return false
+  return done(null, false, 'Token Expired')
 }
