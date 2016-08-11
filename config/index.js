@@ -1,4 +1,4 @@
-const Confidence = require('Confidence')
+const Confidence = require('confidence')
 const Pkg = require('../package.json')
 
 /**

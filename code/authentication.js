@@ -44,11 +44,11 @@ module.exports.isOnline = (token, done) => {
   }
 
   if (!payload || !payload.expiry) {
-    return done(null, false, 'Invalid Token')
+    return done(null, null, 'Invalid Token')
   }
   if (moment(payload.expiry).format() > moment().utc().format()) {
-    return done(null, true)
+    return done(null, payload._id)
   }
   
-  return done(null, false, 'Token Expired')
+  return done(null, null, 'Token Expired')
 }
