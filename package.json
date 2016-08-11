@@ -21,6 +21,7 @@
   "homepage": "https://github.com/JamesGu14/webmonitor-server2",
   "dependencies": {
     "body-parser": "^1.15.2",
+    "boom": "^3.2.2",
     "confidence": "^3.0.1",
     "express": "^4.14.0",
     "jwt-simple": "^0.5.0",

@@ -10,14 +10,15 @@ router.get('/', function (req, res) {
 router.post('/login', function (req, res) {
   res.header('Access-Control-Allow-Origin', '*')
   res.header('Access-Control-Allow-Headers', 'X-Requested-With')
-  Auth.login(req.body.username, req.body.password, function (err, result, token, message) {
+  Auth.login(req.body.username, req.body.password, function (err, result, token, profile) {
     if (err) {
       return res.json({ error: err.message })
     }
     if (!result) {
       return res.json({ error: null, success: false })
     }
-    return res.json({ success: true, token: token })
+
+    return res.json({ success: true, token: token, profile: profile })
   })
 })
 
