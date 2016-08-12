@@ -3,7 +3,10 @@ const router = express()
 const Auth = require('../code/authentication')
 const Boom = require('boom')
 
-var User_app = require('../models/').User_app
+const Models = require('../models/')
+var User_app = Models.User_app
+var Contact = Models.Contact
+
 
 /**
  * GET /
@@ -26,6 +29,30 @@ router.get('/', function (req, res) {
       }
 
       return res.json(result)
+    })
+  })
+})
+
+router.post('/contact', function (req, res) {
+  Auth.isOnline(req.get('authorization'), function (err, _id, msg) {
+    if (err || !_id) {
+      return res.status(401).send('Unauthorized')
+    }
+
+    let payload = req.body
+    let _contact = new Contact({
+      username: payload.username,
+      reason: payload.reason,
+      mobile: payload.mobile,
+      content: payload.content,
+      submit_at: new Date()
+    })
+    _content.save(function (error) {
+      if (error) {
+        return res.status(503).send('Service temporarily unavailable')
+      }
+
+      return res.json({ success: true })
     })
   })
 })
